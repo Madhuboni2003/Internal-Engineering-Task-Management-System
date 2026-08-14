@@ -99,3 +99,23 @@
 {"level":"error","timestamp":"14-08-2026 17:20:20","correlationId":"300bf1f3-42e1-4b3f-8ccd-5998ad4f7923","data":{}}
 {"level":"info","message":"Database Connected Successfully","timestamp":"14-08-2026 17:21:03","correlationId":"unknown-error-while-creating-correlation-id","data":{}}
 {"level":"info","message":"Server is running on PORT: 3000","timestamp":"14-08-2026 17:21:03","correlationId":"unknown-error-while-creating-correlation-id","data":{}}
+{"level":"info","message":"Database Connected Successfully","timestamp":"14-08-2026 17:51:45","correlationId":"unknown-error-while-creating-correlation-id","data":{}}
+{"level":"info","message":"Server is running on PORT: 3000","timestamp":"14-08-2026 17:51:45","correlationId":"unknown-error-while-creating-correlation-id","data":{}}
+{"level":"info","message":"Database Connected Successfully","timestamp":"14-08-2026 18:38:23","correlationId":"unknown-error-while-creating-correlation-id","data":{}}
+{"level":"info","message":"Server is running on PORT: 3000","timestamp":"14-08-2026 18:38:23","correlationId":"unknown-error-while-creating-correlation-id","data":{}}
+{"level":"info","message":"Database Connected Successfully","timestamp":"14-08-2026 18:39:02","correlationId":"unknown-error-while-creating-correlation-id","data":{}}
+{"level":"info","message":"Server is running on PORT: 3000","timestamp":"14-08-2026 18:39:02","correlationId":"unknown-error-while-creating-correlation-id","data":{}}
+{"level":"info","message":"Database Connected Successfully","timestamp":"14-08-2026 18:39:15","correlationId":"unknown-error-while-creating-correlation-id","data":{}}
+{"level":"info","message":"Server is running on PORT: 3000","timestamp":"14-08-2026 18:39:15","correlationId":"unknown-error-while-creating-correlation-id","data":{}}
+{"level":"error","timestamp":"14-08-2026 18:41:44","correlationId":"69d55225-4ef5-4a30-bedd-4265b4a23de3","data":{"name":"PrismaClientValidationError","clientVersion":"7.9.1"}}
+{"level":"error","timestamp":"14-08-2026 18:43:33","correlationId":"ea236863-ea18-4d35-9f1d-57a987db1020","data":{"name":"PrismaClientValidationError","clientVersion":"7.9.1"}}
+{"level":"info","message":"Database Connected Successfully","timestamp":"14-08-2026 18:44:42","correlationId":"unknown-error-while-creating-correlation-id","data":{}}
+{"level":"info","message":"Server is running on PORT: 3000","timestamp":"14-08-2026 18:44:42","correlationId":"unknown-error-while-creating-correlation-id","data":{}}
+{"level":"info","message":"Database Connected Successfully","timestamp":"14-08-2026 18:46:08","correlationId":"unknown-error-while-creating-correlation-id","data":{}}
+{"level":"info","message":"Server is running on PORT: 3000","timestamp":"14-08-2026 18:46:08","correlationId":"unknown-error-while-creating-correlation-id","data":{}}
+{"level":"info","message":"Database Connected Successfully","timestamp":"14-08-2026 18:47:01","correlationId":"unknown-error-while-creating-correlation-id","data":{}}
+{"level":"info","message":"Server is running on PORT: 3000","timestamp":"14-08-2026 18:47:01","correlationId":"unknown-error-while-creating-correlation-id","data":{}}
+{"level":"info","message":"Database Connected Successfully","timestamp":"14-08-2026 18:47:23","correlationId":"unknown-error-while-creating-correlation-id","data":{}}
+{"level":"info","message":"Server is running on PORT: 3000","timestamp":"14-08-2026 18:47:23","correlationId":"unknown-error-while-creating-correlation-id","data":{}}
+{"level":"info","message":"Database Connected Successfully","timestamp":"14-08-2026 18:47:50","correlationId":"unknown-error-while-creating-correlation-id","data":{}}
+{"level":"info","message":"Server is running on PORT: 3000","timestamp":"14-08-2026 18:47:50","correlationId":"unknown-error-while-creating-correlation-id","data":{}}
