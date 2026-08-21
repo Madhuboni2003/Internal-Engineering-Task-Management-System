@@ -1,6 +1,7 @@
 import { Prisma, Project } from "../../generated/prisma/client.js";
 import { prisma } from "../configs/db.config.js";
 import { CreateProjectDto } from "../dtos/project.dto.js";
+
 export interface IProjectRepository {
   create(data: CreateProjectDto, createdBy: bigint): Promise<Project>;
   getAllProjects(): Promise<Project[]>;

@@ -47,4 +47,22 @@ export class TaskController {
       next(error);
     }
   }
+
+  async getTasksHandler(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { user } = req as AuthenticatedRequest;
+
+    const projectId = BigInt(req.query.projectId as string);
+
+    const tasks = await this.taskService.getTasks(
+      user.userId,
+      user.role,
+      projectId
+    );
+
+    sendSuccess(res, tasks, 200, "Tasks fetched successfully");
+  } catch (error) {
+    next(error);
+    }
+  }
 }

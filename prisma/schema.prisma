@@ -29,6 +29,11 @@ enum TaskPriority {
   CRITICAL
 }
 
+enum ReviewDecision {
+  APPROVED
+  CHANGES_REQUESTED
+}
+
 model Role {
   id          BigInt  @id @default(autoincrement())
   name        String  @unique @db.VarChar(50)
@@ -64,7 +69,8 @@ model User {
   addedProjectMembers ProjectMember[]  @relation("ProjectMemberAddedBy")
   taskAssignments     TaskAssignment[] @relation("TaskAssignmentDeveloper")
   assignedTasks       TaskAssignment[] @relation("TaskAssignmentAssignedBy")
-  submissions Submission[]
+  submissions         Submission[]
+  reviews             Review[]
 
   @@map("users")
 }
@@ -153,7 +159,7 @@ model TaskAssignment {
   developer          User                @relation("TaskAssignmentDeveloper", fields: [developerId], references: [id])
   assignedByUser     User                @relation("TaskAssignmentAssignedBy", fields: [assignedBy], references: [id])
   unassignmentReason UnassignmentReason? @relation(fields: [unassignmentReasonId], references: [id])
-  submissions Submission[]
+  submissions        Submission[]
 
   @@map("task_assignments")
 }
@@ -168,10 +174,31 @@ model Submission {
   notes            String?  @db.Text
   submittedAt      DateTime @default(now()) @map("submitted_at")
 
-  task       Task           @relation(fields: [taskId], references: [id])
-  submittedByUser User      @relation(fields: [submittedBy], references: [id])
-  assignment TaskAssignment @relation(fields: [assignmentId], references: [id])
+  task            Task           @relation(fields: [taskId], references: [id])
+  submittedByUser User           @relation(fields: [submittedBy], references: [id])
+  assignment      TaskAssignment @relation(fields: [assignmentId], references: [id])
+  review          Review?
 
   @@unique([taskId, submissionNumber])
   @@map("submissions")
+}
+
+model Review {
+  id                       BigInt         @id @default(autoincrement())
+  submissionId             BigInt         @unique @map("submission_id")
+  reviewedBy               BigInt         @map("reviewed_by")
+  requirementAnalysisScore Int            @map("requirement_analysis_score") @db.TinyInt
+  codeQualityScore         Int            @map("code_quality_score") @db.TinyInt
+  codeCorrectnessScore     Int            @map("code_correctness_score") @db.TinyInt
+  testingScore             Int            @map("testing_score") @db.TinyInt
+  deliveryTimingScore      Int            @map("delivery_timing_score") @db.TinyInt
+  prCommitQualityScore     Int            @map("pr_commit_quality_score") @db.TinyInt
+  feedback                 String?        @db.Text
+  decision                 ReviewDecision
+  reviewedAt               DateTime       @default(now()) @map("reviewed_at")
+
+  submission     Submission @relation(fields: [submissionId], references: [id])
+  reviewedByUser User       @relation(fields: [reviewedBy], references: [id])
+
+  @@map("reviews")
 }

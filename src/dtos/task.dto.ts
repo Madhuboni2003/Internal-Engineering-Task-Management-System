@@ -6,6 +6,10 @@ export const taskIdSchema = z.object({
   taskId: z.coerce.bigint("taskId must be a valid number"),
 });
 
+export const getTasksQuerySchema = z.object({
+  projectId: z.coerce.bigint("Project ID must be a valid number"),
+});
+
 export const createTaskSchema = z.object({
   projectId: z.coerce.bigint("Project ID must be a valid number"),
   title: z.string().min(1, "Title is required").max(255),

@@ -6,6 +6,7 @@ import { UpdateTaskDto } from "../dtos/task.dto.js";
 import { logger } from "../configs/logger.config.js";
 export interface ITaskService {
   getTaskById(taskId: bigint): Promise<Task>;
+  getTasks(userId: bigint, role: string, projectId?: bigint): Promise<Task[]>;
   createTask(data: CreateTaskDto, createdBy: bigint): Promise<Task>;
 }
 
@@ -25,6 +26,20 @@ export class TaskService implements ITaskService {
 
     return task;
   }
+  async getTasks(userId: bigint, role: string, projectId: bigint): Promise<Task[]> {
+  if (role === "ADMIN") {
+    return this.taskRepository.findAllForAdmin(projectId);
+  }
+
+  if (role === "DEVELOPER") {
+    return this.taskRepository.findAllForDeveloper(
+      userId,
+      projectId
+    );
+  }
+
+  return [];
+}
 
   async createTask(data: CreateTaskDto, createdBy: bigint): Promise<Task> {
     const task = await this.taskRepository.create({

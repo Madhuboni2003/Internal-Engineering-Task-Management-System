@@ -9,6 +9,8 @@ import { TaskRepository } from "../../repositories/task.repository.js";
 import { authenticateUser } from "../../middlewares/authentication.middleware.js";
 import { validateRequestParams } from "../../middlewares/validate.middleware.js";
 import { taskIdSchema } from "../../dtos/task.dto.js";
+import { reviewRouter } from "./review.route.js";
+
 
 export const submissionRouter = Router({ mergeParams: true });
 
@@ -26,5 +28,7 @@ submissionRouter.get(
     validateRequestParams(taskIdSchema),
     submissionController.getTaskSubmissionsHandler.bind(submissionController)
 );
+
+submissionRouter.use("/:submissionId/review", reviewRouter);
 
 // implement all the routers below
