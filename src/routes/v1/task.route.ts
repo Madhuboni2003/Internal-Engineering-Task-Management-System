@@ -10,6 +10,7 @@ import { authorizeUser } from "../../middlewares/authorization.middleware.js";
 import { TaskAssignmentController } from "../../controllers/taskAssignment.controller.js";
 import { TaskAssignmentService } from "../../services/taskAssignment.service.js";
 import { TaskAssignmentRepository } from "../../repositories/taskAssignment.repository.js";
+import { commentRouter } from "./comment.route.js";
 
 const taskController = new TaskController(new TaskService(new TaskRepository()));
 
@@ -48,6 +49,8 @@ taskRouter.patch(
   validateRequestBody(updateTaskSchema),
   taskController.updateTaskHandler.bind(taskController)
 );
+
+taskRouter.use("/:taskId", commentRouter);
 
 // implemnet all the routes related to task assignment below that
 

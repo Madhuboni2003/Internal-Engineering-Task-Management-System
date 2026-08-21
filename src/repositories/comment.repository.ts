@@ -3,8 +3,8 @@ import { prisma } from "../configs/db.config.js";
 
 export interface ICommentRepository {
     create(data: Prisma.CommentCreateInput): Promise<Comment>;
-    getAll(): Promise<Comment[]>;
-    get(id: bigint): Promise<Comment>;
+    getAll(taskId: bigint): Promise<Comment[]>;
+    get(taskId: bigint): Promise<Comment[]>;
     update(is: bigint): Promise<Comment>;
     delete(id: bigint): Promise<void>;
 }
@@ -12,9 +12,27 @@ export interface ICommentRepository {
 export class CommentRepository implements ICommentRepository {
     async create(data: Prisma.CommentCreateInput): Promise<Comment> {}
 
-    async getAll(): Promise<Comment[]> {}
+    async getAll(taskId: bigint): Promise<Comment[]> {
+        return prisma.comment.findMany({
+            where: {
+                taskId
+            },
+            orderBy: {
+                createdAt: 'asc'
+            }
+        });
+    }
 
-    async get(id: bigint): Promise<Comment> {}
+    async get(taskId: bigint): Promise<Comment[]> {
+        return prisma.comment.findMany({
+            where: {
+                taskId
+            },
+            orderBy: {
+                createdAt: 'asc'
+            }
+        });
+    }
 
     async update(is: bigint): Promise<Comment> {}
 
