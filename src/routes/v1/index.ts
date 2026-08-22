@@ -4,7 +4,7 @@ import userRouter from "./user.route.js";
 import authRouter from "./auth.route.js";
 import projectRouter from "./project.route.js";
 import { submissionRouter } from "./submission.route.js";
-
+import { commentIdRouter } from "./comment.route.js";
 import taskRouter from "./task.route.js";
 
 const router = Router();
@@ -14,6 +14,6 @@ router.use("/roles", roleRouter);
 router.use("/auth", authRouter);
 router.use("/projects", projectRouter);
 router.use("/tasks", taskRouter);
-
+router.use("/comments", commentIdRouter);
 
 export default router;

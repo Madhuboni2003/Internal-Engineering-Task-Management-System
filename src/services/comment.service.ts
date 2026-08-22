@@ -12,7 +12,7 @@ export interface ICommentService {
     getAllComments(taskId: bigint, user: AuthUser): Promise<Comment[]>;
     getComment(taskId: bigint, user: AuthUser): Promise<Comment[]>;
     updateComment(): Promise<void>;
-    deleteComment(): Promise<void>;
+    deleteComment(commentId: bigint, user: AuthUser): Promise<void>;
 }
 
 export class CommentService implements ICommentService {
@@ -40,11 +40,18 @@ export class CommentService implements ICommentService {
             throw new NotfoundError("Task not found");
         }
 
-        if (user.role !== RoleName.ADMIN) {
-            throw new ForbiddenError("You are not authorized to view all comments on this task");
+        if (user.role === RoleName.ADMIN) {
+            return this.commentRepository.getAll(taskId);
+        }
+
+        const assignment = await this.taskAssignmentRepository.findCurrentAssignment(taskId, user.userId);
+        
+        if (!assignment) {
+        throw new ForbiddenError("You are not assigned to this task");
         }
 
         return this.commentRepository.getAll(taskId);
+
     }
 
     async getComment(taskId: bigint, user: AuthUser): Promise<Comment[]> {
@@ -56,13 +63,26 @@ export class CommentService implements ICommentService {
 
         const assignment = await this.taskAssignmentRepository.findCurrentAssignment(taskId, user.userId);
 
+
         if (!assignment) {
             throw new ForbiddenError("You are not assigned to this task");
         }
 
-        return this.commentRepository.get(taskId);
+        return this.commentRepository.getAll(taskId);
     }
     async updateComment(): Promise<void> {}
 
-    async deleteComment(): Promise<void> {}
+    async deleteComment(commentId: bigint, user: AuthUser): Promise<void> {
+        const comment = await this.commentRepository.get(commentId);
+
+        if (!comment) {
+            throw new NotfoundError("Comment not found");
+        }
+
+        if (user.role !== RoleName.ADMIN && comment.userId !== user.userId) {
+            throw new ForbiddenError("You are not authorized to delete this comment");
+        }
+
+        await this.commentRepository.delete(commentId);
+    }
 }
