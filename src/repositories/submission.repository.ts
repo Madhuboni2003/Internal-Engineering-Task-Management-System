@@ -9,19 +9,15 @@ export interface ISubmissionRepository {
 export class SubmissionRepository implements ISubmissionRepository {
     async create(data: Prisma.SubmissionCreateInput): Promise<Submission> {
         // implement properly
-
-        return prisma.submission.create({ data });
+       return prisma.submission.create({ data });
     }
 
     async findByTaskId(taskId: bigint): Promise<Submission[]> {
         return prisma.submission.findMany({
-            where: {
-                taskId
-            },
-            orderBy: {
-                submissionNumber: 'asc'
-            }
+            where: { taskId },
+            orderBy: { submissionNumber: "desc" },
         });
+
     }
 
 }

@@ -11,7 +11,6 @@ export const authenticateUser = async (req: Request, _res: Response, next: NextF
         }
 
         const claims: AccessTokenClaims = verifyToken(token);
-
         let userId: bigint;
 
         try {

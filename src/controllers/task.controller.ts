@@ -3,6 +3,7 @@ import { TaskService } from "../services/task.service.js";
 import { sendSuccess } from "../utils/helpers/response.helper.js";
 import { AuthenticatedRequest } from "../types/express.js";
 
+
 export class TaskController {
   private readonly taskService: TaskService;
 
@@ -34,19 +35,54 @@ export class TaskController {
       next(error);
     }
   }
+  async updateTaskHandler(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const taskId = req.params.taskId as string;
+    const updateData = req.body;
 
-  async updateTaskHandler(req: Request, res: Response, next: NextFunction) {
-    try {
-      const taskId = req.params.taskId as string;
-      const updateData = req.body;
+    const updatedTask = await this.taskService.updateTask(
+      BigInt(taskId),
+      updateData
+    );
 
-      const updatedTask = await this.taskService.updateTask(BigInt(taskId), updateData);
-
-      sendSuccess(res, updatedTask, 200, "Task updated successfully");
-    } catch (error) {
-      next(error);
-    }
+    sendSuccess(
+      res,
+      updatedTask,
+      200,
+      "Task updated successfully"
+    );
+  } catch (error) {
+    next(error);
   }
+}
+
+  async updateTaskStatusHandler(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { user } = req as AuthenticatedRequest;
+    const taskId = req.params.taskId as string;
+    const { status } = req.body;
+
+    const updatedTask = await this.taskService.updateTaskStatus( BigInt(taskId), user.userId,user.role,status );
+
+    sendSuccess(
+      res,
+      updatedTask,
+      200,
+      "Task status updated successfully"
+    );
+  } catch (error) {
+    next(error);
+  }
+}
+  
 
   async getTasksHandler(req: Request, res: Response, next: NextFunction) {
   try {

@@ -17,9 +17,9 @@ enum ProjectStatus {
 enum TaskStatus {
   TODO
   IN_PROGRESS
-  IN_REVIEW
-  CHANGES_REQUESTED
+  READY_FOR_REVIEW
   COMPLETED
+  REOPENED
 }
 
 enum TaskPriority {
@@ -31,7 +31,7 @@ enum TaskPriority {
 
 enum ReviewDecision {
   APPROVED
-  CHANGES_REQUESTED
+  CHANGES_REQUIRED
 }
 
 model Role {

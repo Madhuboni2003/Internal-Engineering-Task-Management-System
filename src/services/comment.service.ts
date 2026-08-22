@@ -54,7 +54,7 @@ export class CommentService implements ICommentService {
             throw new NotfoundError("Task not found");
         }
 
-        const assignment = await this.taskAssignmentRepository.findCurrent(taskId, user.userId);
+        const assignment = await this.taskAssignmentRepository.findCurrentAssignment(taskId, user.userId);
 
         if (!assignment) {
             throw new ForbiddenError("You are not assigned to this task");
