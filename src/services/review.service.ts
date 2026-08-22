@@ -24,10 +24,9 @@ export class ReviewService implements IReviewService {
             throw new NotfoundError("Review not found for this submission");
         }
 
-        const isAdmin = requestingUser.role === RoleName.ADMIN;
         const isOwner = review.submission.submittedBy === requestingUser.userId;
 
-        if (!isAdmin && !isOwner) {
+        if (requestingUser.role === RoleName.DEVELOPER && !isOwner) {
             throw new UnauthorizedError("You are not allowed to view this review");
         }
 

@@ -31,4 +31,5 @@ export const errorHandler = (error: unknown, _req: Request, res: Response, _next
     }
 
     res.status(500).json(body);
+    
 }

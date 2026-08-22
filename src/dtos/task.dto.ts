@@ -34,6 +34,12 @@ export const updateTaskSchema = z.object({
   { message: "At least one field must be provided to update" }
 );
 
+export const updateTaskStatusSchema = z.object({
+  status: z.enum(TaskStatus)
+});
+
+
 export type TaskIdDto = z.infer<typeof taskIdSchema>;
 export type CreateTaskDto = z.infer<typeof createTaskSchema>;
 export type UpdateTaskDto = z.infer<typeof updateTaskSchema>;
+export type UpdateTaskStatusDto = z.infer<typeof updateTaskStatusSchema>;

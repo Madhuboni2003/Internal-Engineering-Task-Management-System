@@ -3,23 +3,38 @@ import { prisma } from "../configs/db.config.js";
 
 export interface ITaskAssignmentRepository {
     create(data: Prisma.TaskAssignmentCreateInput): Promise<TaskAssignment>
-    findCurrentByTaskAndDeveloper(taskId: bigint, developerId: bigint): Promise<TaskAssignment | null>
+    findCurrentAssignment(taskId: bigint, developerId: bigint): Promise<TaskAssignment | null>
+    getAssignmentHistory(taskId: bigint): Promise<TaskAssignment[]>
 }
 
 export class TaskAssignmentRepository implements ITaskAssignmentRepository {
     async create(data: Prisma.TaskAssignmentCreateInput): Promise<TaskAssignment> {
-        
+        return prisma.taskAssignment.create({
+            data
+        });
     }
 
-
-    async findCurrentByTaskAndDeveloper(taskId: bigint, developerId: bigint): Promise<TaskAssignment | null> {
+    async findCurrentAssignment(taskId: bigint, developerId: bigint): Promise<TaskAssignment | null> {
         return prisma.taskAssignment.findFirst({
             where: {
                 taskId,
                 developerId,
-                isCurrent: true,
-            },
+                isCurrent: true
+            }
         });
     }
 
+    async getAssignmentHistory(taskId: bigint): Promise<TaskAssignment[]> {
+        return prisma.taskAssignment.findMany({
+            where: {
+                taskId
+            },
+            orderBy: {
+                assignedAt: "asc"
+            }
+        });
+    }
 }
+
+
+
