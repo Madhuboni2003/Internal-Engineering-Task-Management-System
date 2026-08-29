@@ -37,7 +37,7 @@ taskRouter.get(
     "/unassignment-reasons",
     authenticateUser,
     authorizeUser(RoleName.ADMIN),
-    unassignmentReasonController.getAllReasonsHandler.bind(unassignmentReasonController)
+    unassignmentReasonController.getAllUnassignmentReasonsHandler.bind(unassignmentReasonController)
 );
 
 taskRouter.get(
