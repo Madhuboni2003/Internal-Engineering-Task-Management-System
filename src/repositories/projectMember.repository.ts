@@ -5,6 +5,7 @@ import { ProjectMemberWithUser } from "../types/projectMember.type.js";
 export interface IProjectMemberRepository {
     create(projectId: bigint, userId: bigint, addedBy: bigint): Promise<ProjectMember>;
     findActiveMembership(projectId: bigint, userId: bigint): Promise<boolean>;
+    findActiveMembershipRecord(projectId: bigint, userId: bigint): Promise<ProjectMember | null>;
     findByProjectId(projectId: bigint): Promise<ProjectMemberWithUser[]>;
     findByProjectId(projectId: bigint): Promise<ProjectMemberWithUser[]>;
     update(id: bigint, data: Prisma.ProjectMemberUpdateInput): Promise<ProjectMember>;
@@ -38,9 +39,20 @@ export class ProjectMemberRepository implements IProjectMemberRepository {
         return membership != null;
     }
 
+    
+    async findActiveMembershipRecord(projectId: bigint, userId: bigint): Promise<ProjectMember | null> {
+        return await prisma.projectMember.findFirst({
+            where: {
+                projectId,
+                userId,
+                removedAt: null
+            }
+        });
+    }
+
     async findByProjectId(projectId: bigint): Promise<ProjectMemberWithUser[]> {
     return await prisma.projectMember.findMany({
-        where: { projectId },
+        where: { projectId, removedAt: null },
         include: {
             user: {
                 select: {
